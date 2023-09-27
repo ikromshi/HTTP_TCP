@@ -24,10 +24,12 @@ class HttpRequest:
 
         # Prepend a "." so that file request is within the current directory
         file_name = "." + file_name
+        print(file_name)
 
         # Check if the file exists
         file_exists = os.path.isfile(file_name)
         if file_exists:
+            print("File here")
             with open(file_name, "rb") as f:
                 file_content = f.read()
 
@@ -35,6 +37,7 @@ class HttpRequest:
             content_type_line = "Content-Type: " + self.content_type(file_name) + self.CRLF
             response_body = file_content
         else:
+            print("File not found")
             status_line = "HTTP/1.0 404 Not Found" + self.CRLF
             content_type_line = "Content-Type: text/html" + self.CRLF
             response_body = ("<HTML>" +

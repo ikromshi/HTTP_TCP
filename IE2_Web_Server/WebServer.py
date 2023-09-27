@@ -1,6 +1,6 @@
 import socket
 import threading
-import HTTPServer
+from HTTPServer import HttpRequest
 
 class WebServer:
     def __init__(self, port):
@@ -12,8 +12,8 @@ class WebServer:
     def run(self):
         while True:
             connection_socket, address = self.server_socket.accept()
-            request = HTTPServer(connection_socket)
-            client_thread = threading.Thread(target=request, args=(connection_socket,))
+            request = HttpRequest(connection_socket)
+            client_thread = threading.Thread(target=request.process_request)
             client_thread.start()
 
 if __name__ == "__main__":
